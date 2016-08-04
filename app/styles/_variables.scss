@@ -1,0 +1,50 @@
+
+
+// VARIABLES
+// ----------------
+
+
+
+
+$color-primary    : #853C6D;
+$color-secondary  : #363636;
+$color-dark       : #1c1c1c;
+
+$background-color: $color-dark;
+
+$color-1: $color-primary;
+$color-2: darken($color-primary, 20%);
+$color-3: lighten($color-primary, 20%);
+
+$skew-0                         : rotateZ(180deg) rotateX(0) rotateY(180deg) skewY(-20deg);
+$skew-1                         : rotateZ(180deg) rotateX(0) rotateY(180deg) skewY(20deg);
+$row-length                     : 10;               // integer  - .row length in index.html
+$element-length                 : $row-length * 10;
+
+
+
+
+
+
+$element-shape                          : circle; // square, circle, triangle, stick
+$element-size                           : 60px;
+$element-float                          : true;
+$color-style-setting                    : stroke; // stroke, fill
+
+$wrapper-opacity                        : 1;
+$animation-max-duration                 : 150;
+
+$random-color-toggle                    : false;
+
+
+// random || sequence || sideways || new || together
+$animation-sequence-setting             : random;
+
+
+// random | burst | scaling | colors | randomcolors | burstcolors | panels | pulse | explode | panelsburst
+// -------------------------------------------------------------------------------------------------------
+
+$animation-style-setting                : random;
+$element-opacity                        : 0;
+
+

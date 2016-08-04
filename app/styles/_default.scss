@@ -1,0 +1,68 @@
+// DEFAULT ELEMENTS
+// ----------------
+
+html, body, .container {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+  background-color: $background-color;
+}
+
+
+.square {
+    position: relative;
+    @if $element-float == true {
+      float: left;
+    }
+    border: 1px solid transparent;
+    -webkit-perspective: 1000px;
+    -webkit-transform-style: preserve-3d;
+    opacity: $element-opacity;
+    display: block;
+    -webkit-transform: scale(1);
+    &:after, &:before {
+      content: '';
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background-color: rgba(0,0,0,0.3);
+    }
+
+    @if $element-shape == square {
+      height: $element-size;
+      width: $element-size;
+    }
+
+    @else if $element-shape == circle {
+      height: $element-size;
+      width: $element-size;
+      border-radius: $element-size;
+      &:after, &:before {
+        border-radius: $element-size;
+      }
+    }
+
+    @else if $element-shape == stick {
+      width: $element-size;
+
+    }
+
+    @else if $element-shape == triangle {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 ($element-size / 2) $element-size ($element-size / 2);
+    }
+}
+
+
+
+
+

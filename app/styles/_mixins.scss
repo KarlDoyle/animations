@@ -1,0 +1,250 @@
+// MIXIN FOR COLOR TYPE SETTING
+// --------------------------
+
+@mixin colorType($color) {
+    @if $element-shape == triangle {
+        border-color: transparent transparent $color transparent;
+    } @else {
+        @if $color-style-setting == stroke {
+            border-color: $color;
+        } @elseif $color-style-setting == fill {
+            background-color: $color;
+        }
+    }
+}
+
+
+
+
+
+
+// MIXIN FOR CORRECT COLOURS
+// --------------------------
+
+@mixin colorList($colors...) {
+
+    @if $random-color-toggle == true {
+        @include colorType(hsla(random(365), 90, 50, 1));
+    } @else {
+        $amount: length($colors);
+        $nt : random($amount);
+        $color: nth($colors, $nt);
+        @include colorType($color);
+    }
+}
+
+
+
+
+
+
+
+// MIXIN FOR DELAY SETTINGS
+// --------------------------
+
+@mixin delayRandom($x, $a) {
+    @if $animation-sequence-setting == random {
+        -webkit-animation-delay: random($animation-max-duration) + s !important;
+    } @elseif $animation-sequence-setting == sequence {
+        -webkit-animation-delay: $a * ($x * 1s) !important;
+    } @elseif $animation-sequence-setting == sideways {
+        -webkit-animation-delay: random(50) + $a + s !important;
+    } @elseif $animation-sequence-setting == new {
+        -webkit-animation-delay: $a * 1s !important;
+    } @elseif $animation-sequence-setting == together {
+        -webkit-animation-delay: 0 !important;
+    }
+}
+
+
+
+// MIXIN FOR ADDING ALL SETTINGS TOGETHER
+// ----------------------------
+
+@mixin defaultConfig($i, $a) {
+    @include colorList($color-1, $color-2, $color-3);
+    @include delayRandom($i, $a);
+}
+
+
+
+
+
+
+
+// random position functionality
+// -----------------------------
+@mixin randomPlacement($element-length) {
+    @for $i from 1 through $element-length {
+        @include animation-styles($i);
+        .square.square-#{$i} {
+            @include defaultConfig($i, $i);
+            left: random(100) * 1%;
+            top: random(100) * 1%;
+        }
+    }
+}
+
+
+
+
+
+
+
+// ordered positioning function
+// ----------------------------
+@mixin orderedPlacement($element-length, $row-length, $element-width, $element-height) {
+    @for $i from 1 through $row-length {
+        .row.row-#{$i} {
+            @for $a from 1 through $element-length {
+              .square.square-#{$a} {
+                @include defaultConfig($i, $a);
+              }
+            }
+        }
+    }
+    @for $a from 1 through $element-length {
+        @include animation-styles($a);
+    }
+    @for $i from 2 through $element-length {
+        .square.square-#{$i} {
+            left: ($element-width + 1px) * ($i - 1);
+        }
+    }
+    @for $i from 2 through $row-length {
+        .row-#{$i} > .square {
+            top: ($element-height + 1px) * ($i - 1);
+        }
+    }
+}
+
+
+@mixin animation($animate...) {
+    $max: length($animate);
+    $animations: '';
+
+    @for $i from 1 through $max {
+        $animations: #{$animations + nth($animate, $i)};
+
+        @if $i < $max {
+            $animations: #{$animations + ", "};
+        }
+    }
+    -webkit-animation: $animations;
+    -moz-animation:    $animations;
+    -o-animation:      $animations;
+    animation:         $animations;
+}
+
+
+@mixin animation-styles($i) {
+
+    $random     : random-#{$i} random($animation-max-duration) + s infinite;
+    $burst      : burst-#{$i} random($animation-max-duration) + s infinite;
+    $panelburst : panelburst-#{$i} random($animation-max-duration) + s infinite;
+    $scaling    : scaling random($animation-max-duration) + s infinite;
+    $colors     : color-#{$i} ($i * 2) + s infinite;
+
+
+    $pulse1      : pulse-#{$i} 10s infinite;
+    $random2     : random-#{$i} 10s 10s infinite;
+    $pulse2      : pulse-#{$i} 10s 20s infinite;
+
+    $explode     : explode-#{$i} 5s infinite;
+
+
+
+
+    @if $animation-style-setting == random {
+        @include random-animation($i);
+        .square.square-#{$i} {
+            @include animation($random);
+        }
+    }
+    @elseif $animation-style-setting == burst {
+        @include burst-animation($i);
+        .square.square-#{$i} {
+            @include animation($burst);
+        }
+    }
+    @elseif $animation-style-setting == scaling {
+        @include scaling-animation();
+        .square.square-#{$i} {
+            @include animation($scaling);
+        }
+    }
+    @elseif $animation-style-setting == colors {
+        @include colors-animation($i);
+        .square.square-#{$i} {
+            @include animation($colors);
+        }
+    }
+    @elseif $animation-style-setting == randomcolors {
+        @include random-animation($i);
+        @include colors-animation($i);
+        .square.square-#{$i} {
+            @include animation($random, $colors);
+        }
+    }
+    @elseif $animation-style-setting == burstcolors {
+        @include burst-animation($i);
+        @include colors-animation();
+        .square.square-#{$i} {
+            @include animation($burst, $colors);
+        }
+    }
+    @elseif $animation-style-setting == panels {
+        @include panels-animation();
+        @include panelsCSS()
+    }
+    @elseif $animation-style-setting == pulse {
+        @include pulse-animation($i);
+        .square.square-#{$i} {
+            @include animation($pulse1);
+        }
+    }
+    @elseif $animation-style-setting == explode {
+        @include calm-explode-animation($i);
+        @include scaling-animation();
+        .square.square-#{$i} {
+            @include animation($explode, $scaling);
+        }
+    }
+    @elseif $animation-style-setting == panelsburst {
+        @include panelburst-animation($i);
+        @include random-animation($i);
+        @include scaling-animation();
+        @include colors-animation($i);
+        .square.square-#{$i} {
+            @include animation($panelburst, $colors, $random, $scaling);
+        }
+    }
+}
+
+
+
+
+// MIXIN TO ELEMENT POSITIONING
+// ----------------------------
+@mixin elementPosition() {
+    @for $i from 1 through $row-length {
+        .row.row-#{$i} {
+            @for $a from 1 through $element-length {
+              .square.square-#{$a} {
+                @include defaultConfig($i, $a);
+              }
+            }
+        }
+    }
+    @for $a from 1 through $element-length {
+        @include animation-styles($a);
+    }
+}
+
+
+
+
+// =============
+// RUN FUNCTIONS
+// =============
+@include elementPosition();

@@ -1,0 +1,242 @@
+@mixin colors-animation($i) {
+    @-webkit-keyframes colors-#{$i} {
+      0%    { @include colorList($color-1, $color-2, $color-3); }
+      50%   { @include colorList($color-1, $color-2, $color-3); }
+      100%  { @include colorList($color-1, $color-2, $color-3); }
+    }
+}
+@mixin random-animation($i) {
+    @-webkit-keyframes random-#{$i} {
+        0% {
+            opacity: 0;
+            -webkit-transform:
+                rotate(random(360) * 1deg)
+                scale(1)
+                translate3d(0, random(100) + px, random(100) + px);
+        } 20% {
+            opacity: 0.8;
+            -webkit-transform:
+                rotate(random(360) * 1deg)
+                scale(.5)
+                translate3d(0, random(1000) + px, random(1000) + px);
+        } 40% {
+            opacity: 0.2;
+            -webkit-transform:
+                rotate(random(360) * 1deg)
+                scale(1)
+                translate3d(0, random(1000) + px, random(1000) + px);
+        } 60% {
+            opacity: 1;
+            -webkit-transform:
+                rotate(random(360) * 1deg)
+                scale(.2)
+                translate3d(0, random(1000) + px, random(1000) + px);
+        } 100% {
+            opacity: 0;
+            -webkit-transform:
+                rotate(random(360) * 1deg)
+                scale(1)
+                translate3d(0, random(1000) + px, random(1000) + px);
+        }
+    }
+}
+
+@mixin burst-animation($i) {
+    @-webkit-keyframes burst-#{$i} {
+        0%   {
+            -webkit-transform: scale(0.5);
+            opacity: 0;
+            left: (40 + random(10)) * 1%;
+            top: (40 + random(10)) * 1%;
+        }
+        50%  {
+            -webkit-transform: scale(1.2);
+            opacity: 1;
+            left: random(100) * 1%;
+            top: random(100) * 1%;
+        }
+        100% {
+            -webkit-transform: scale(1);
+            opacity: 0;
+            left: (40 + random(10)) * 1%;
+            top: (40 + random(10)) * 1%;
+        }
+    }
+}
+@mixin panelburst-animation($i) {
+    @-webkit-keyframes panelburst-#{$i} {
+        0%   {
+            -webkit-transform: scale(0.5) rotateZ(random(100) * 1deg) rotateX(random(100) * 1deg) rotateY(random(100) * 1deg) skewY(random(360) * 1deg);
+            opacity: 0;
+            left: (40 + random(10)) * 1%;
+            top: (40 + random(10)) * 1%;
+        }
+        50%  {
+            -webkit-transform: scale(1.2) rotateZ(random(100) * 1deg) rotateX(random(100) * 1deg) rotateY(random(100) * 1deg) skewY(random(360) * 1deg);
+            opacity: 1;
+            left: random(100) * 1%;
+            top: random(100) * 1%;
+        }
+        100% {
+            -webkit-transform: scale(1) rotateZ(random(100) * 1deg) rotateX(random(100) * 1deg) rotateY(random(100) * 1deg) skewY(random(360) * 1deg);
+            opacity: 0;
+            left: (40 + random(10)) * 1%;
+            top: (40 + random(10)) * 1%;
+        }
+    }
+}
+@mixin scaling-animation() {
+    @-webkit-keyframes scaling {
+        0%   {
+            opacity: 0;
+            -webkit-transform: scale(0);
+        }
+        50%  {
+            opacity: 1;
+            -webkit-transform: scale(1);
+        }
+        100% {
+            opacity: 0;
+            -webkit-transform: scale(0);
+        }
+    }
+}
+@mixin panels-animation() {
+    @-webkit-keyframes slideDown {
+      from  { @include slideDownStart;} to { @include slideDownEnd;}
+    }
+
+    @-webkit-keyframes slideRight {
+      from  { @include slideRightStart;} to { @include slideRightEnd;}
+    }
+}
+
+@mixin slideDownStart() { height: 0;width: $element-width;opacity: 0;}
+@mixin slideDownEnd()   { height: $element-height;width: $element-width;opacity: 1;}
+@mixin slideRightStart(){ height: $element-height;width: 0;opacity: 0;}
+@mixin slideRightEnd()  { height: $element-height; width: $element-width; opacity: 1;}
+
+@mixin panelsCSS(){
+    .animation-row {
+        &:nth-child(odd) {
+            .pixel {
+                &:nth-child(even) {
+                  @include animation(slideDown .5s 1 forwards);
+                  -webkit-transform: $skew-0; }
+                &:nth-child(odd)  {
+                  @include animation(slideRight .5s 1 forwards);
+                  -webkit-transform: $skew-1;
+                }
+            }
+        }
+        &:nth-child(even) {
+            .pixel {
+                &:nth-child(even) {
+                  @include animation(slideDown .5s 1 forwards);
+                  -webkit-transform: $skew-0; }
+                &:nth-child(odd)  {
+                  @include animation(slideRight .5s 1 forwards);
+                  -webkit-transform: $skew-1;
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@mixin pulse-animation($i) {
+    @-webkit-keyframes pulse-#{$i} {
+        0%   {
+            -webkit-transform: scale(0.3);
+            opacity: 0;
+            left: (40 + random(10)) * 1%;
+            top: (40 + random(10)) * 1%;
+        }
+        50%   {
+            -webkit-transform: scale(0.3);
+            opacity: 1;
+            left: (40 + random(10)) * 1%;
+            top: (40 + random(10)) * 1%;
+        }
+        100% {
+            -webkit-transform: scale(0.3);
+            opacity: 0;
+            left: (40 + random(10)) * 1%;
+            top: (40 + random(10)) * 1%;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@mixin calm-explode-animation($i) {
+
+
+    @-webkit-keyframes explode-#{$i} {
+        0%, 100% {
+            opacity: 0;
+            -webkit-transform: rotate(random(360) * 1deg);
+            left: (40 + random(10)) * 1%;
+            top: (40 + random(10)) * 1%;
+        }
+        5%   {
+            opacity: 100%;
+            -webkit-transform: rotate(random(360) * 1deg);
+            left: (45 + random(10)) * 1%;
+            top: (45 + random(10)) * 1%;
+        }
+        10%   {
+            opacity: 100%;
+            -webkit-transform: rotate(random(360) * 1deg);
+            left: (45 + random(10)) * 1%;
+            top: (45 + random(10)) * 1%;
+        }
+        40%   {
+            opacity: 100%;
+            -webkit-transform: rotate(random(360) * 1deg);
+            left: (random(100)) * 1%;
+            top: (random(100)) * 1%;
+        }
+        60%   {
+            opacity: 100%;
+            -webkit-transform: rotate(random(360) * 1deg);
+            left: (random(100)) * 1%;
+            top: (random(100)) * 1%;
+        }
+        90%   {
+            opacity: 100%;
+            -webkit-transform: rotate(random(360) * 1deg);
+            left: (45 + random(10)) * 1%;
+            top: (45 + random(10)) * 1%;
+        }
+        95%   {
+            opacity: 100%;
+            -webkit-transform: rotate(random(360) * 1deg);
+            left: (45 + random(10)) * 1%;
+            top: (45 + random(10)) * 1%;
+        }
+    }
+}
