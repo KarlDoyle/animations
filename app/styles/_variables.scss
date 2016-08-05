@@ -3,16 +3,13 @@
 // VARIABLES
 // ----------------
 
+$background-color: #efefef;
 
+$color-primary    : darken($background-color, 5%);
+$color-secondary  : lighten($background-color, 10%);
+$color-dark       : darken($background-color, 10%);
 
-
-$color-primary    : #853C6D;
-$color-secondary  : #363636;
-$color-dark       : #1c1c1c;
-
-$background-color: $color-dark;
-
-$color-1: $color-primary;
+$color-1: $background-color;
 $color-2: darken($color-primary, 20%);
 $color-3: lighten($color-primary, 20%);
 
@@ -23,18 +20,15 @@ $element-length                 : $row-length * 10;
 
 
 
-
-
-
-$element-shape                          : circle; // square, circle, triangle, stick
-$element-size                           : 60px;
+$element-shape                          : stick; // square, circle, triangle, stick
+$element-size                           : 100px;
 $element-float                          : true;
 $color-style-setting                    : stroke; // stroke, fill
 
 $wrapper-opacity                        : 1;
-$animation-max-duration                 : 150;
+$animation-max-duration                 : 100;
 
-$random-color-toggle                    : false;
+$random-color-toggle                    : true;
 
 
 // random || sequence || sideways || new || together
